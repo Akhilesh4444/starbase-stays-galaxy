@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Menu, X, User, Calendar, LogOut, Volume2, VolumeX } from 'lucide-react';
+import { Menu, X, User, Calendar, LogOut, Volume2, VolumeX, Rocket } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { signOut, getUserDisplayName } from '@/lib/auth';
@@ -16,7 +16,7 @@ import {
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(() => {
-    return localStorage.getItem('starbase-sound-enabled') === 'true';
+    return localStorage.getItem('alien-sound-enabled') === 'true';
   });
   
   const navigate = useNavigate();
@@ -32,8 +32,8 @@ const Header = () => {
     try {
       await signOut();
       toast({
-        title: "Farewell, Jedi",
-        description: "You have successfully logged out",
+        title: "Safe travels, Space Explorer!",
+        description: "You have successfully logged out of your galactic account",
       });
       navigate('/');
     } catch (error) {
@@ -48,26 +48,24 @@ const Header = () => {
   const toggleSound = () => {
     const newState = !soundEnabled;
     setSoundEnabled(newState);
-    localStorage.setItem('starbase-sound-enabled', newState.toString());
+    localStorage.setItem('alien-sound-enabled', newState.toString());
     
     toast({
-      title: newState ? "Sound Effects Enabled" : "Sound Effects Disabled",
+      title: newState ? "Alien Sound Effects Enabled" : "Sound Effects Disabled",
       description: newState 
-        ? "May the Force be with you! 🔊" 
-        : "Silent mode activated 🔇",
+        ? "Welcome to the cosmic soundscape! 🛸" 
+        : "Silent space mode activated 🔇",
       duration: 2000,
     });
 
-    // Play test sound if enabling
     if (newState) {
-      playLightsaberSound();
+      playAlienSound();
     }
   };
 
-  const playLightsaberSound = () => {
+  const playAlienSound = () => {
     if (!soundEnabled) return;
     
-    // Create a simple beep sound using Web Audio API
     try {
       const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
       const oscillator = audioContext.createOscillator();
@@ -76,15 +74,16 @@ const Header = () => {
       oscillator.connect(gainNode);
       gainNode.connect(audioContext.destination);
       
-      oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
-      oscillator.frequency.exponentialRampToValueAtTime(880, audioContext.currentTime + 0.1);
-      oscillator.frequency.exponentialRampToValueAtTime(220, audioContext.currentTime + 0.3);
+      // Alien-like sound effect
+      oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
+      oscillator.frequency.exponentialRampToValueAtTime(800, audioContext.currentTime + 0.2);
+      oscillator.frequency.exponentialRampToValueAtTime(100, audioContext.currentTime + 0.5);
       
       gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
       
       oscillator.start(audioContext.currentTime);
-      oscillator.stop(audioContext.currentTime + 0.3);
+      oscillator.stop(audioContext.currentTime + 0.5);
     } catch (error) {
       console.log('Audio not supported');
     }
@@ -94,17 +93,20 @@ const Header = () => {
 
   return (
     <>
-      <div className="starfield"></div>
-      <header className="relative z-50 bg-background/95 backdrop-blur-sm border-b border-border sticky top-0">
+      <div className="alien-starfield"></div>
+      <header className="relative z-50 bg-background/95 backdrop-blur-md border-b border-border sticky top-0">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link to="/" className="flex items-center space-x-2">
-              <div className="text-2xl md:text-3xl font-orbitron font-bold glow-text-red">
-                STARBASE
-              </div>
-              <div className="text-2xl md:text-3xl font-orbitron font-bold text-accent glow-text-blue">
-                STAYS
+            <Link to="/" className="flex items-center space-x-3">
+              <div className="text-3xl">🛸</div>
+              <div className="flex flex-col">
+                <div className="text-2xl md:text-3xl font-alien font-bold glow-text-purple">
+                  AlienAirbnb
+                </div>
+                <div className="text-xs text-accent font-space">
+                  Intergalactic Inc.
+                </div>
               </div>
             </Link>
 
@@ -112,23 +114,46 @@ const Header = () => {
             <nav className="hidden md:flex items-center space-x-6">
               <Link 
                 to="/" 
-                className={`text-lg font-exo transition-colors hover:text-primary ${
-                  isActive('/') ? 'text-primary glow-text-red' : 'text-foreground'
+                className={`text-lg font-space transition-colors hover:text-primary ${
+                  isActive('/') ? 'text-primary glow-text-purple' : 'text-foreground'
                 }`}
               >
-                Browse
+                Home
+              </Link>
+              
+              <Link 
+                to="/" 
+                className="text-lg font-space transition-colors hover:text-accent text-foreground"
+              >
+                Destinations
+              </Link>
+
+              <Link 
+                to="/" 
+                className="text-lg font-space transition-colors hover:text-alien-green text-foreground"
+              >
+                Guest Favourites
               </Link>
               
               {user && (
                 <Link 
                   to="/bookings" 
-                  className={`text-lg font-exo transition-colors hover:text-accent ${
+                  className={`text-lg font-space transition-colors hover:text-accent ${
                     isActive('/bookings') ? 'text-accent glow-text-blue' : 'text-foreground'
                   }`}
                 >
                   My Bookings
                 </Link>
               )}
+
+              {/* Book Now Button */}
+              <Button
+                onClick={() => navigate('/')}
+                className="alien-button bg-primary hover:bg-primary/90 text-primary-foreground font-space font-semibold px-6"
+              >
+                <Rocket className="w-4 h-4 mr-2" />
+                Book Now
+              </Button>
 
               {/* Sound Toggle */}
               <Button
@@ -143,19 +168,19 @@ const Header = () => {
 
               {/* Auth Section */}
               {loading ? (
-                <div className="w-8 h-8 death-star-loader scale-50" />
+                <div className="ufo-loader scale-50" />
               ) : user ? (
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button 
                       variant="outline" 
-                      className="lightsaber-button-blue border-accent text-accent hover:bg-accent hover:text-accent-foreground"
+                      className="alien-button-blue border-accent text-accent hover:bg-accent hover:text-accent-foreground"
                     >
                       <User className="w-4 h-4 mr-2" />
-                      Jedi {displayName}
+                      Space Explorer {displayName}
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuContent align="end" className="w-56 bg-card border-border">
                     <DropdownMenuItem asChild>
                       <Link to="/profile" className="cursor-pointer">
                         <User className="w-4 h-4 mr-2" />
@@ -178,7 +203,7 @@ const Header = () => {
               ) : (
                 <Button 
                   variant="outline" 
-                  className="lightsaber-button border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                  className="alien-button border-primary text-primary hover:bg-primary hover:text-primary-foreground"
                   onClick={() => navigate('/auth')}
                 >
                   <User className="w-4 h-4 mr-2" />
@@ -205,18 +230,34 @@ const Header = () => {
               <div className="flex flex-col space-y-4">
                 <Link 
                   to="/" 
-                  className={`text-lg font-exo transition-colors hover:text-primary ${
-                    isActive('/') ? 'text-primary glow-text-red' : 'text-foreground'
+                  className={`text-lg font-space transition-colors hover:text-primary ${
+                    isActive('/') ? 'text-primary glow-text-purple' : 'text-foreground'
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Browse
+                  Home
+                </Link>
+                
+                <Link 
+                  to="/" 
+                  className="text-lg font-space transition-colors hover:text-accent text-foreground"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Destinations
+                </Link>
+
+                <Link 
+                  to="/" 
+                  className="text-lg font-space transition-colors hover:text-alien-green text-foreground"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Guest Favourites
                 </Link>
                 
                 {user && (
                   <Link 
                     to="/bookings" 
-                    className={`text-lg font-exo transition-colors hover:text-accent ${
+                    className={`text-lg font-space transition-colors hover:text-accent ${
                       isActive('/bookings') ? 'text-accent glow-text-blue' : 'text-foreground'
                     }`}
                     onClick={() => setIsMenuOpen(false)}
@@ -225,6 +266,18 @@ const Header = () => {
                     My Bookings
                   </Link>
                 )}
+
+                {/* Mobile Book Now */}
+                <Button
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    navigate('/');
+                  }}
+                  className="alien-button bg-primary hover:bg-primary/90 text-primary-foreground font-space font-semibold w-fit"
+                >
+                  <Rocket className="w-4 h-4 mr-2" />
+                  Book Now
+                </Button>
 
                 {/* Mobile Sound Toggle */}
                 <Button
@@ -238,15 +291,15 @@ const Header = () => {
 
                 {/* Mobile Auth */}
                 {loading ? (
-                  <div className="w-8 h-8 death-star-loader scale-50" />
+                  <div className="ufo-loader scale-50" />
                 ) : user ? (
                   <div className="flex flex-col space-y-2">
-                    <div className="text-accent font-exo">
-                      Welcome, Jedi {displayName}
+                    <div className="text-accent font-space">
+                      Welcome, Space Explorer {displayName}
                     </div>
                     <Link 
                       to="/profile" 
-                      className="text-foreground hover:text-primary font-exo"
+                      className="text-foreground hover:text-primary font-space"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       <User className="w-4 h-4 inline mr-2" />
@@ -267,7 +320,7 @@ const Header = () => {
                 ) : (
                   <Button 
                     variant="outline" 
-                    className="lightsaber-button border-primary text-primary hover:bg-primary hover:text-primary-foreground w-fit"
+                    className="alien-button border-primary text-primary hover:bg-primary hover:text-primary-foreground w-fit"
                     onClick={() => {
                       setIsMenuOpen(false);
                       navigate('/auth');

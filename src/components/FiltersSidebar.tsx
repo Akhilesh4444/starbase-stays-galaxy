@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
-import { X, Filter, Settings } from 'lucide-react';
+import { X, Filter, Settings, Zap } from 'lucide-react';
 import { getAllAmenities } from '@/lib/supabase-rooms';
 
 export interface FilterState {
@@ -26,9 +26,9 @@ interface FiltersSidebarProps {
 
 const roomTypes = [
   { value: 'all', label: 'All Types' },
-  { value: 'hotel', label: 'Hotel' },
-  { value: 'apartment', label: 'Apartment' },
-  { value: 'suite', label: 'Suite' }
+  { value: 'hotel', label: 'Space Hotel' },
+  { value: 'apartment', label: 'Cosmic Apartment' },
+  { value: 'suite', label: 'Luxury Suite' }
 ];
 
 const FiltersSidebar = ({ 
@@ -90,9 +90,9 @@ const FiltersSidebar = ({
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center space-x-2">
-              <Settings className="w-5 h-5 text-primary" />
-              <h2 className="text-lg font-orbitron font-bold text-primary glow-text-red">
-                Jedi Controls
+              <Zap className="w-5 h-5 text-primary" />
+              <h2 className="text-lg font-space font-bold text-primary glow-text-purple">
+                Cosmic Controls
               </h2>
             </div>
             <Button
@@ -108,12 +108,12 @@ const FiltersSidebar = ({
           <div className="space-y-6">
             {/* Price Range */}
             <div className="space-y-3">
-              <Label className="text-sm font-exo font-semibold text-foreground">
+              <Label className="text-sm font-space font-semibold text-foreground">
                 Price Range (Credits/Night)
               </Label>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <Label htmlFor="priceMin" className="text-xs text-muted-foreground font-exo">
+                  <Label htmlFor="priceMin" className="text-xs text-muted-foreground font-space">
                     Min
                   </Label>
                   <Input
@@ -125,11 +125,11 @@ const FiltersSidebar = ({
                       ...filters,
                       priceMin: e.target.value
                     })}
-                    className="bg-input border-border focus:border-primary"
+                    className="bg-input border-border focus:border-primary rounded-xl"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="priceMax" className="text-xs text-muted-foreground font-exo">
+                  <Label htmlFor="priceMax" className="text-xs text-muted-foreground font-space">
                     Max
                   </Label>
                   <Input
@@ -141,7 +141,7 @@ const FiltersSidebar = ({
                       ...filters,
                       priceMax: e.target.value
                     })}
-                    className="bg-input border-border focus:border-primary"
+                    className="bg-input border-border focus:border-primary rounded-xl"
                   />
                 </div>
               </div>
@@ -151,7 +151,7 @@ const FiltersSidebar = ({
 
             {/* Room Type */}
             <div className="space-y-3">
-              <Label className="text-sm font-exo font-semibold text-foreground">
+              <Label className="text-sm font-space font-semibold text-foreground">
                 Accommodation Type
               </Label>
               <Select 
@@ -161,7 +161,7 @@ const FiltersSidebar = ({
                   roomType: value
                 })}
               >
-                <SelectTrigger className="bg-input border-border focus:border-primary">
+                <SelectTrigger className="bg-input border-border focus:border-primary rounded-xl">
                   <SelectValue placeholder="Select type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -178,8 +178,8 @@ const FiltersSidebar = ({
 
             {/* Amenities */}
             <div className="space-y-3">
-              <Label className="text-sm font-exo font-semibold text-foreground">
-                Force Amenities
+              <Label className="text-sm font-space font-semibold text-foreground">
+                Cosmic Amenities
               </Label>
               {loading ? (
                 <div className="space-y-2">
@@ -201,7 +201,7 @@ const FiltersSidebar = ({
                       />
                       <Label 
                         htmlFor={amenity} 
-                        className="text-sm font-exo text-foreground cursor-pointer hover:text-primary transition-colors"
+                        className="text-sm font-space text-foreground cursor-pointer hover:text-primary transition-colors"
                       >
                         {amenity}
                       </Label>
@@ -217,7 +217,7 @@ const FiltersSidebar = ({
             <div className="space-y-2">
               <Button 
                 onClick={onApplyFilters}
-                className="w-full lightsaber-button bg-primary hover:bg-primary/90 text-primary-foreground font-exo font-semibold"
+                className="w-full alien-button bg-primary hover:bg-primary/90 text-primary-foreground font-space font-semibold"
               >
                 <Filter className="w-4 h-4 mr-2" />
                 Apply Filters
@@ -225,7 +225,7 @@ const FiltersSidebar = ({
               <Button 
                 onClick={onClearFilters}
                 variant="outline"
-                className="w-full border-border hover:border-accent hover:text-accent font-exo"
+                className="w-full border-border hover:border-accent hover:text-accent font-space"
               >
                 Clear All
               </Button>

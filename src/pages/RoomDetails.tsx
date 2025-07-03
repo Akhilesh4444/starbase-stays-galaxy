@@ -15,7 +15,9 @@ import {
   Car,
   Utensils,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Zap,
+  Rocket
 } from 'lucide-react';
 import Header from '@/components/Header';
 import LoadingSpinner from '@/components/LoadingSpinner';
@@ -35,7 +37,7 @@ const RoomDetails = () => {
   const [checkIn, setCheckIn] = useState<Date>();
   const [checkOut, setCheckOut] = useState<Date>();
   const [soundEnabled] = useState(() => {
-    return localStorage.getItem('starbase-sound-enabled') === 'true';
+    return localStorage.getItem('alien-sound-enabled') === 'true';
   });
 
   useEffect(() => {
@@ -51,8 +53,8 @@ const RoomDetails = () => {
         
         if (!roomData) {
           toast({
-            title: "Room Not Found",
-            description: "The requested accommodation could not be found.",
+            title: "Accommodation Not Found 👽",
+            description: "The requested cosmic accommodation could not be found.",
             variant: "destructive",
           });
           navigate('/');
@@ -64,7 +66,7 @@ const RoomDetails = () => {
         console.error('Error loading room:', error);
         toast({
           title: "Error",
-          description: "Failed to load room details. Please try again.",
+          description: "Failed to load accommodation details. Please try again.",
           variant: "destructive",
         });
         navigate('/');
@@ -76,7 +78,7 @@ const RoomDetails = () => {
     loadRoom();
   }, [id, navigate, toast]);
 
-  const playLightsaberSound = () => {
+  const playAlienSound = () => {
     if (!soundEnabled) return;
     
     try {
@@ -87,15 +89,15 @@ const RoomDetails = () => {
       oscillator.connect(gainNode);
       gainNode.connect(audioContext.destination);
       
-      oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
-      oscillator.frequency.exponentialRampToValueAtTime(880, audioContext.currentTime + 0.1);
-      oscillator.frequency.exponentialRampToValueAtTime(220, audioContext.currentTime + 0.3);
+      oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
+      oscillator.frequency.exponentialRampToValueAtTime(800, audioContext.currentTime + 0.2);
+      oscillator.frequency.exponentialRampToValueAtTime(100, audioContext.currentTime + 0.5);
       
       gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
       
       oscillator.start(audioContext.currentTime);
-      oscillator.stop(audioContext.currentTime + 0.3);
+      oscillator.stop(audioContext.currentTime + 0.5);
     } catch (error) {
       console.log('Audio not supported');
     }
@@ -112,14 +114,17 @@ const RoomDetails = () => {
     if (amenityLower.includes('breakfast') || amenityLower.includes('food')) {
       return <Utensils className="w-4 h-4" />;
     }
+    if (amenityLower.includes('chamber') || amenityLower.includes('meditation')) {
+      return <Zap className="w-4 h-4" />;
+    }
     return null;
   };
 
   const handleBookNow = () => {
-    if (soundEnabled) playLightsaberSound();
+    if (soundEnabled) playAlienSound();
     
     toast({
-      title: "Booking Initiated",
+      title: "Booking Initiated! 🚀",
       description: `Preparing to book ${room?.name}. Authentication required for full booking system.`,
       duration: 4000,
     });
@@ -146,7 +151,7 @@ const RoomDetails = () => {
       <div className="min-h-screen bg-background">
         <Header />
         <main className="container mx-auto px-4 py-8">
-          <LoadingSpinner message="Loading accommodation details..." size="lg" />
+          <LoadingSpinner message="Loading cosmic accommodation details..." size="lg" />
         </main>
       </div>
     );
@@ -158,12 +163,13 @@ const RoomDetails = () => {
         <Header />
         <main className="container mx-auto px-4 py-8">
           <div className="text-center py-12">
-            <h1 className="text-2xl font-orbitron font-bold text-muted-foreground mb-4">
-              Accommodation Not Found
+            <div className="text-6xl mb-4">👽</div>
+            <h1 className="text-2xl font-alien font-bold text-muted-foreground mb-4">
+              Cosmic Accommodation Not Found
             </h1>
             <Link to="/">
-              <Button className="lightsaber-button bg-primary hover:bg-primary/90 text-primary-foreground">
-                Return to Browse
+              <Button className="alien-button bg-primary hover:bg-primary/90 text-primary-foreground">
+                🚀 Return to Browse
               </Button>
             </Link>
           </div>
@@ -184,17 +190,17 @@ const RoomDetails = () => {
         {/* Back Button */}
         <Link 
           to="/" 
-          className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors font-exo mb-6"
+          className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors font-space mb-6"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Browse
+          Back to Galactic Browse
         </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column - Images and Details */}
           <div className="lg:col-span-2 space-y-6">
             {/* Image Carousel */}
-            <Card className="overflow-hidden bg-card/95 backdrop-blur-sm border-border">
+            <Card className="overflow-hidden alien-hover-lift bg-card/95 backdrop-blur-sm border-border">
               <div className="relative">
                 <img 
                   src={images[currentImageIndex]} 
@@ -207,7 +213,7 @@ const RoomDetails = () => {
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white"
+                      className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full"
                       onClick={prevImage}
                     >
                       <ChevronLeft className="w-6 h-6" />
@@ -215,7 +221,7 @@ const RoomDetails = () => {
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white"
+                      className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full"
                       onClick={nextImage}
                     >
                       <ChevronRight className="w-6 h-6" />
@@ -240,16 +246,16 @@ const RoomDetails = () => {
             </Card>
 
             {/* Room Details */}
-            <Card className="bg-card/95 backdrop-blur-sm border-border">
+            <Card className="alien-hover-lift bg-card/95 backdrop-blur-sm border-border">
               <CardContent className="p-6">
                 <div className="space-y-4">
                   <div>
-                    <h1 className="text-3xl font-orbitron font-bold text-foreground mb-2">
+                    <h1 className="text-3xl font-space font-bold text-foreground mb-2 glow-text-purple">
                       {room.name}
                     </h1>
                     <div className="flex items-center text-muted-foreground mb-4">
                       <MapPin className="w-5 h-5 mr-2 text-primary" />
-                      <span className="font-exo text-lg">{room.location}</span>
+                      <span className="font-space text-lg">{room.location}</span>
                     </div>
                   </div>
 
@@ -257,33 +263,33 @@ const RoomDetails = () => {
                     <div className="flex items-center space-x-4">
                       <div className="flex items-center">
                         <Star className="w-5 h-5 text-yellow-400 fill-current mr-1" />
-                        <span className="font-exo font-semibold text-lg">{room.rating}</span>
-                        <span className="text-muted-foreground font-exo ml-1">/5</span>
+                        <span className="font-space font-semibold text-lg">{room.rating}</span>
+                        <span className="text-muted-foreground font-space ml-1">/5</span>
                       </div>
                       <div className="flex items-center text-muted-foreground">
                         <Users className="w-5 h-5 mr-1" />
-                        <span className="font-exo">Up to {room.max_guests} guests</span>
+                        <span className="font-space">Up to {room.max_guests} beings</span>
                       </div>
                     </div>
-                    <Badge variant="secondary" className="text-lg px-3 py-1">
+                    <Badge variant="secondary" className="text-lg px-3 py-1 font-space">
                       {room.room_type}
                     </Badge>
                   </div>
 
                   <div className="border-t border-border pt-4">
-                    <h3 className="text-lg font-orbitron font-semibold mb-2">Description</h3>
-                    <p className="text-muted-foreground font-exo leading-relaxed">
+                    <h3 className="text-lg font-space font-semibold mb-2">Description</h3>
+                    <p className="text-muted-foreground font-space leading-relaxed">
                       {room.description}
                     </p>
                   </div>
 
                   <div className="border-t border-border pt-4">
-                    <h3 className="text-lg font-orbitron font-semibold mb-3">Amenities</h3>
+                    <h3 className="text-lg font-space font-semibold mb-3">Cosmic Amenities</h3>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                       {room.amenities?.map((amenity) => (
                         <div key={amenity} className="flex items-center space-x-2">
                           {getAmenityIcon(amenity)}
-                          <span className="font-exo text-sm">{amenity}</span>
+                          <span className="font-space text-sm">{amenity}</span>
                         </div>
                       ))}
                     </div>
@@ -293,12 +299,12 @@ const RoomDetails = () => {
             </Card>
 
             {/* Reviews Section (Placeholder) */}
-            <Card className="bg-card/95 backdrop-blur-sm border-border">
+            <Card className="alien-hover-lift bg-card/95 backdrop-blur-sm border-border">
               <CardContent className="p-6">
-                <h3 className="text-lg font-orbitron font-semibold mb-4">Guest Reviews</h3>
+                <h3 className="text-lg font-space font-semibold mb-4">Galactic Guest Reviews</h3>
                 <div className="text-center py-8">
-                  <div className="death-star-loader mx-auto opacity-30 mb-4" />
-                  <p className="text-muted-foreground font-exo">
+                  <div className="text-6xl mb-4">👽</div>
+                  <p className="text-muted-foreground font-space">
                     Reviews coming soon. Connect to Supabase for full review system.
                   </p>
                 </div>
@@ -308,28 +314,28 @@ const RoomDetails = () => {
 
           {/* Right Column - Booking */}
           <div className="lg:col-span-1">
-            <Card className="bg-card/95 backdrop-blur-sm border-border sticky top-24">
+            <Card className="alien-hover-lift bg-card/95 backdrop-blur-sm border-border sticky top-24">
               <CardContent className="p-6">
                 <div className="text-center mb-6">
-                  <div className="text-3xl font-orbitron font-bold text-primary glow-text-red">
-                    ${room.price_per_night}
+                  <div className="text-3xl font-space font-bold text-primary glow-text-purple">
+                    {room.price_per_night} Credits
                   </div>
-                  <div className="text-muted-foreground font-exo">per night</div>
+                  <div className="text-muted-foreground font-space">per night</div>
                 </div>
 
                 <div className="space-y-4">
                   {/* Date Selection */}
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <label className="text-sm font-exo text-foreground mb-1 block">
-                        Check-in
+                      <label className="text-sm font-space text-foreground mb-1 block">
+                        Arrival
                       </label>
                       <Popover>
                         <PopoverTrigger asChild>
                           <Button
                             variant="outline"
                             className={cn(
-                              "w-full justify-start text-left font-normal bg-input border-border",
+                              "w-full justify-start text-left font-normal bg-input border-border rounded-xl",
                               !checkIn && "text-muted-foreground"
                             )}
                           >
@@ -350,15 +356,15 @@ const RoomDetails = () => {
                     </div>
 
                     <div>
-                      <label className="text-sm font-exo text-foreground mb-1 block">
-                        Check-out
+                      <label className="text-sm font-space text-foreground mb-1 block">
+                        Departure
                       </label>
                       <Popover>
                         <PopoverTrigger asChild>
                           <Button
                             variant="outline"
                             className={cn(
-                              "w-full justify-start text-left font-normal bg-input border-border",
+                              "w-full justify-start text-left font-normal bg-input border-border rounded-xl",
                               !checkOut && "text-muted-foreground"
                             )}
                           >
@@ -382,25 +388,26 @@ const RoomDetails = () => {
                   {/* Booking Summary */}
                   {checkIn && checkOut && (
                     <div className="border-t border-border pt-4 space-y-2">
-                      <div className="flex justify-between font-exo">
+                      <div className="flex justify-between font-space">
                         <span>Nights:</span>
                         <span>{Math.ceil((checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60 * 24))}</span>
                       </div>
-                      <div className="flex justify-between font-exo font-semibold">
+                      <div className="flex justify-between font-space font-semibold">
                         <span>Total:</span>
-                        <span>${(room.price_per_night * Math.ceil((checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60 * 24))).toFixed(2)}</span>
+                        <span>{(room.price_per_night * Math.ceil((checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60 * 24))).toFixed(0)} Credits</span>
                       </div>
                     </div>
                   )}
 
                   <Button 
                     onClick={handleBookNow}
-                    className="w-full lightsaber-button bg-primary hover:bg-primary/90 text-primary-foreground font-exo font-semibold text-lg py-3"
+                    className="w-full alien-button bg-primary hover:bg-primary/90 text-primary-foreground font-space font-semibold text-lg py-3"
                   >
+                    <Rocket className="w-4 h-4 mr-2" />
                     Book Now
                   </Button>
 
-                  <p className="text-xs text-muted-foreground font-exo text-center">
+                  <p className="text-xs text-muted-foreground font-space text-center">
                     You won't be charged yet. Authentication required for booking.
                   </p>
                 </div>

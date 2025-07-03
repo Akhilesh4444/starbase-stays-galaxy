@@ -2,105 +2,111 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Enhanced Star Wars Themed Design System */
+/* AlienAirbnb Dark Space Fantasy Theme */
 
 @layer base {
   :root {
-    /* Enhanced Star Wars Dark Theme */
-    --background: 26 26 26; /* Deep space black #1A1A1A */
-    --foreground: 0 0% 100%; /* Pure white text */
+    /* Dark Space Theme Colors */
+    --background: 8 8 20; /* Deep space black #080814 */
+    --foreground: 255 255 255; /* Stardust white */
 
-    --card: 10 10 10; /* Rich dark for cards #0A0A0A */
-    --card-foreground: 0 0% 100%;
+    --card: 15 15 35; /* Dark space card #0F0F23 */
+    --card-foreground: 255 255 255;
 
-    --popover: 26 26 26;
-    --popover-foreground: 0 0% 100%;
+    --popover: 8 8 20;
+    --popover-foreground: 255 255 255;
 
-    /* Primary = Deep Red #8B0000 */
-    --primary: 0 100% 27%; /* Deep red */
-    --primary-foreground: 0 0% 100%;
-    --primary-glow: 0 100% 35%; /* Brighter red for glows */
+    /* Primary = Neon Purple #8B5CF6 */
+    --primary: 262 83% 58%; /* Electric purple */
+    --primary-foreground: 255 255 255;
+    --primary-glow: 262 83% 70%;
 
-    /* Secondary = Dark Gray */
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 95%;
+    /* Secondary = Dark Purple */
+    --secondary: 262 50% 20%;
+    --secondary-foreground: 255 255 255;
 
-    /* Muted = Subtle dark tones */
-    --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 65%;
+    /* Muted = Dark space tones */
+    --muted: 240 10% 15%;
+    --muted-foreground: 240 5% 70%;
 
-    /* Accent = Electric Blue #00B7EB */
-    --accent: 195 100% 46%; /* Electric blue */
-    --accent-foreground: 0 0% 100%;
+    /* Accent = Electric Blue #00D4FF */
+    --accent: 195 100% 50%; /* Electric blue */
+    --accent-foreground: 8 8 20;
     --accent-glow: 195 100% 60%;
 
+    /* Alien Green = #39FF14 */
+    --alien-green: 105 100% 54%;
+    --alien-green-glow: 105 100% 65%;
+
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive-foreground: 255 255 255;
 
-    --border: 0 0% 20%; /* Dark borders */
-    --input: 0 0% 8%; /* Very dark input backgrounds */
-    --ring: 0 100% 27%; /* Deep red focus rings */
+    --border: 240 20% 25%; /* Glowing borders */
+    --input: 240 15% 12%; /* Very dark input backgrounds */
+    --ring: 262 83% 58%; /* Purple focus rings */
 
-    --radius: 0.75rem;
+    --radius: 1rem;
     
-    /* Star Wars Specific Colors */
-    --empire-gray: 0 0% 25%;
-    --rebel-orange: 25 100% 60%;
-    --jedi-blue: 210 100% 50%;
-    --sith-red: 0 100% 50%;
+    /* Alien-specific colors */
+    --plasma-pink: 320 100% 70%;
+    --cosmic-orange: 25 100% 60%;
+    --nebula-teal: 180 100% 50%;
+    --void-purple: 280 100% 40%;
     
     /* Enhanced gradients */
-    --gradient-space: linear-gradient(135deg, hsl(26 26 26), hsl(0 0% 5%), hsl(26 26 26));
-    --gradient-card: linear-gradient(145deg, hsl(10 10 10), hsl(0 0% 8%));
+    --gradient-space: linear-gradient(135deg, hsl(8 8 20), hsl(240 15% 8%), hsl(262 30% 15%), hsl(8 8 20));
+    --gradient-nebula: linear-gradient(45deg, hsl(262 83% 58% / 0.3), hsl(195 100% 50% / 0.3), hsl(105 100% 54% / 0.3));
+    --gradient-alien-card: linear-gradient(145deg, hsl(15 15 35), hsl(240 20% 12%), hsl(262 40% 18%));
     
-    /* Enhanced glow effects */
-    --glow-red: 0 0 25px hsl(0 100% 27% / 0.6), 0 0 50px hsl(0 100% 27% / 0.4), 0 0 75px hsl(0 100% 27% / 0.2);
-    --glow-blue: 0 0 25px hsl(195 100% 46% / 0.6), 0 0 50px hsl(195 100% 46% / 0.4), 0 0 75px hsl(195 100% 46% / 0.2);
-    --glow-accent: 0 0 15px hsl(var(--accent) / 0.5), 0 0 30px hsl(var(--accent) / 0.3);
+    /* Alien glow effects */
+    --glow-purple: 0 0 30px hsl(262 83% 58% / 0.8), 0 0 60px hsl(262 83% 58% / 0.6), 0 0 90px hsl(262 83% 58% / 0.4);
+    --glow-blue: 0 0 25px hsl(195 100% 50% / 0.8), 0 0 50px hsl(195 100% 50% / 0.6), 0 0 75px hsl(195 100% 50% / 0.4);
+    --glow-green: 0 0 20px hsl(105 100% 54% / 0.8), 0 0 40px hsl(105 100% 54% / 0.6), 0 0 60px hsl(105 100% 54% / 0.4);
+    --glow-plasma: 0 0 25px hsl(320 100% 70% / 0.8), 0 0 50px hsl(320 100% 70% / 0.6);
     
     /* Animation timings */
     --transition-fast: 0.2s ease;
     --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-slow: 0.5s ease;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 240 5% 8%;
+    --sidebar-foreground: 255 255 255;
+    --sidebar-primary: 262 83% 58%;
+    --sidebar-primary-foreground: 255 255 255;
+    --sidebar-accent: 240 15% 15%;
+    --sidebar-accent-foreground: 255 255 255;
+    --sidebar-border: 240 20% 25%;
+    --sidebar-ring: 262 83% 58%;
   }
 
   .dark {
-    --background: 26 26 26;
-    --foreground: 0 0% 100%;
-    --card: 10 10 10;
-    --card-foreground: 0 0% 100%;
-    --popover: 26 26 26;
-    --popover-foreground: 0 0% 100%;
-    --primary: 0 100% 27%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 95%;
-    --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 65%;
-    --accent: 195 100% 46%;
-    --accent-foreground: 0 0% 100%;
+    --background: 8 8 20;
+    --foreground: 255 255 255;
+    --card: 15 15 35;
+    --card-foreground: 255 255 255;
+    --popover: 8 8 20;
+    --popover-foreground: 255 255 255;
+    --primary: 262 83% 58%;
+    --primary-foreground: 255 255 255;
+    --secondary: 262 50% 20%;
+    --secondary-foreground: 255 255 255;
+    --muted: 240 10% 15%;
+    --muted-foreground: 240 5% 70%;
+    --accent: 195 100% 50%;
+    --accent-foreground: 8 8 20;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 20%;
-    --input: 0 0% 8%;
-    --ring: 0 100% 27%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --destructive-foreground: 255 255 255;
+    --border: 240 20% 25%;
+    --input: 240 15% 12%;
+    --ring: 262 83% 58%;
+    --sidebar-background: 240 5% 8%;
+    --sidebar-foreground: 255 255 255;
+    --sidebar-primary: 262 83% 58%;
+    --sidebar-primary-foreground: 255 255 255;
+    --sidebar-accent: 240 15% 15%;
+    --sidebar-accent-foreground: 255 255 255;
+    --sidebar-border: 240 20% 25%;
+    --sidebar-ring: 262 83% 58%;
   }
 }
 
@@ -111,101 +117,204 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Exo 2', 'Orbitron', sans-serif;
+    font-family: 'Space Grotesk', 'Orbitron', sans-serif;
     background: var(--gradient-space);
     background-attachment: fixed;
-  }
-  
-  /* Star Wars UI Components */
-  .lightsaber-button {
-    @apply relative overflow-hidden border-2 transition-all duration-300;
-    background: linear-gradient(45deg, transparent, hsl(var(--primary) / 0.1), transparent);
-  }
-  
-  .lightsaber-button:hover {
-    box-shadow: var(--glow-red);
-    border-color: hsl(var(--primary));
-  }
-  
-  .lightsaber-button-blue {
-    @apply relative overflow-hidden border-2 transition-all duration-300;
-    background: linear-gradient(45deg, transparent, hsl(var(--accent) / 0.1), transparent);
-  }
-  
-  .lightsaber-button-blue:hover {
-    box-shadow: var(--glow-blue);
-    border-color: hsl(var(--accent));
-  }
-  
-  /* Death Star Loading Animation */
-  .death-star-loader {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, hsl(0 0% 40%), hsl(0 0% 10%));
     position: relative;
-    animation: death-star-spin 2s linear infinite;
+    overflow-x: hidden;
   }
   
-  .death-star-loader::before {
+  /* Alien UI Components */
+  .alien-button {
+    @apply relative overflow-hidden border-2 transition-all duration-300 rounded-xl;
+    background: linear-gradient(45deg, transparent, hsl(var(--primary) / 0.2), transparent);
+    border-image: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--alien-green))) 1;
+  }
+  
+  .alien-button:hover {
+    box-shadow: var(--glow-purple);
+    transform: translateY(-2px) scale(1.02);
+  }
+  
+  .alien-button-blue {
+    @apply relative overflow-hidden border-2 transition-all duration-300 rounded-xl;
+    background: linear-gradient(45deg, transparent, hsl(var(--accent) / 0.2), transparent);
+  }
+  
+  .alien-button-blue:hover {
+    box-shadow: var(--glow-blue);
+    transform: translateY(-2px) scale(1.02);
+  }
+
+  .alien-button-green {
+    @apply relative overflow-hidden border-2 transition-all duration-300 rounded-xl;
+    background: linear-gradient(45deg, transparent, hsl(var(--alien-green) / 0.2), transparent);
+  }
+  
+  .alien-button-green:hover {
+    box-shadow: var(--glow-green);
+    transform: translateY(-2px) scale(1.02);
+  }
+
+  .plasma-button {
+    @apply relative overflow-hidden border-2 transition-all duration-300 rounded-xl;
+    background: linear-gradient(45deg, hsl(var(--plasma-pink) / 0.3), hsl(var(--cosmic-orange) / 0.3));
+    border-color: hsl(var(--plasma-pink));
+  }
+  
+  .plasma-button:hover {
+    box-shadow: var(--glow-plasma);
+    transform: translateY(-2px) scale(1.05);
+  }
+  
+  /* UFO Loading Animation */
+  .ufo-loader {
+    width: 80px;
+    height: 40px;
+    position: relative;
+    animation: ufo-float 3s ease-in-out infinite;
+  }
+  
+  .ufo-loader::before {
     content: '';
     position: absolute;
-    top: 15px;
-    left: 15px;
-    width: 12px;
-    height: 12px;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 20px;
+    background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--accent)));
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    box-shadow: var(--glow-purple);
+  }
+  
+  .ufo-loader::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 8px;
+    background: linear-gradient(90deg, transparent, hsl(var(--alien-green) / 0.8), transparent);
     border-radius: 50%;
-    background: hsl(0 100% 50%);
-    box-shadow: var(--glow-red);
+    animation: ufo-beam 2s ease-in-out infinite;
   }
   
-  @keyframes death-star-spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+  @keyframes ufo-float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(2deg); }
   }
   
-  /* Starfield Background */
-  .starfield {
+  @keyframes ufo-beam {
+    0%, 100% { opacity: 0.3; transform: translateX(-50%) scaleX(0.5); }
+    50% { opacity: 1; transform: translateX(-50%) scaleX(1); }
+  }
+  
+  /* Animated Starfield with Nebulas */
+  .alien-starfield {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
+    z-index: -2;
     background: 
-      radial-gradient(2px 2px at 20px 30px, white, transparent),
-      radial-gradient(2px 2px at 40px 70px, white, transparent),
-      radial-gradient(1px 1px at 90px 40px, white, transparent),
-      radial-gradient(1px 1px at 130px 80px, white, transparent),
-      radial-gradient(2px 2px at 160px 30px, white, transparent),
-      hsl(26 26 26);
+      radial-gradient(3px 3px at 30px 50px, hsl(var(--alien-green)), transparent),
+      radial-gradient(2px 2px at 80px 30px, hsl(var(--accent)), transparent),
+      radial-gradient(1px 1px at 120px 80px, white, transparent),
+      radial-gradient(2px 2px at 200px 40px, hsl(var(--primary)), transparent),
+      radial-gradient(1px 1px at 250px 120px, hsl(var(--plasma-pink)), transparent),
+      radial-gradient(3px 3px at 350px 60px, hsl(var(--cosmic-orange)), transparent),
+      hsl(var(--background));
     background-repeat: repeat;
-    background-size: 200px 100px;
-    animation: starfield-move 50s linear infinite;
+    background-size: 400px 200px;
+    animation: alien-starfield-move 60s linear infinite;
+  }
+
+  /* Floating Nebula Clouds */
+  .alien-starfield::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      radial-gradient(ellipse 200px 100px at 20% 30%, hsl(var(--primary) / 0.1), transparent),
+      radial-gradient(ellipse 300px 150px at 80% 70%, hsl(var(--accent) / 0.1), transparent),
+      radial-gradient(ellipse 250px 120px at 60% 20%, hsl(var(--alien-green) / 0.08), transparent);
+    animation: nebula-drift 80s ease-in-out infinite;
+  }
+
+  /* Floating Alien Elements */
+  .alien-starfield::after {
+    content: '🛸 👽 🌌 ☄️ 🪐';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+    opacity: 0.3;
+    animation: alien-elements-float 100s linear infinite;
+    pointer-events: none;
   }
   
-  @keyframes starfield-move {
-    from { transform: translateY(0); }
-    to { transform: translateY(-100px); }
+  @keyframes alien-starfield-move {
+    from { transform: translateY(0) translateX(0); }
+    to { transform: translateY(-200px) translateX(-100px); }
+  }
+
+  @keyframes nebula-drift {
+    0%, 100% { transform: translateX(0) translateY(0) rotate(0deg); }
+    25% { transform: translateX(50px) translateY(-30px) rotate(1deg); }
+    50% { transform: translateX(-30px) translateY(-60px) rotate(-1deg); }
+    75% { transform: translateX(-50px) translateY(-30px) rotate(0.5deg); }
+  }
+
+  @keyframes alien-elements-float {
+    from { transform: translateY(100vh) translateX(0); }
+    to { transform: translateY(-100px) translateX(100px); }
   }
   
   /* Glowing text effects */
-  .glow-text-red {
-    text-shadow: 0 0 10px hsl(0 100% 50% / 0.8), 0 0 20px hsl(0 100% 50% / 0.6);
+  .glow-text-purple {
+    text-shadow: 0 0 15px hsl(var(--primary) / 0.8), 0 0 30px hsl(var(--primary) / 0.6), 0 0 45px hsl(var(--primary) / 0.4);
   }
   
   .glow-text-blue {
-    text-shadow: 0 0 10px hsl(195 100% 46% / 0.8), 0 0 20px hsl(195 100% 46% / 0.6);
+    text-shadow: 0 0 15px hsl(var(--accent) / 0.8), 0 0 30px hsl(var(--accent) / 0.6), 0 0 45px hsl(var(--accent) / 0.4);
+  }
+
+  .glow-text-green {
+    text-shadow: 0 0 15px hsl(var(--alien-green) / 0.8), 0 0 30px hsl(var(--alien-green) / 0.6);
+  }
+
+  .glow-text-plasma {
+    text-shadow: 0 0 15px hsl(var(--plasma-pink) / 0.8), 0 0 30px hsl(var(--plasma-pink) / 0.6);
   }
   
   /* Card hover effects */
-  .hover-lift {
+  .alien-hover-lift {
     transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
   }
   
-  .hover-lift:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 20px 40px hsl(0 0% 0% / 0.5), var(--glow-red);
+  .alien-hover-lift:hover {
+    transform: translateY(-12px) scale(1.03);
+    box-shadow: 
+      0 25px 50px hsl(var(--background) / 0.8), 
+      var(--glow-purple),
+      0 0 0 1px hsl(var(--primary) / 0.3);
+  }
+
+  /* Alien font classes */
+  .font-alien {
+    font-family: 'Creepster', 'Orbitron', cursive;
+  }
+
+  .font-space {
+    font-family: 'Space Grotesk', sans-serif;
   }
 
   /* Line clamp utility */
@@ -215,4 +324,24 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-}
+
+  /* Pulsing alien elements */
+  .alien-pulse {
+    animation: alien-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes alien-pulse {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+  }
+
+  /* Rotating planet animation */
+  .planet-rotate {
+    animation: planet-rotate 20s linear infinite;
+  }
+
+  @keyframes planet-rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+</style>

@@ -8,7 +8,7 @@ import { Separator } from '@/components/ui/separator';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useNavigate } from 'react-router-dom';
-import { Mail, Lock, User, AlertCircle } from 'lucide-react';
+import { Mail, Lock, User, AlertCircle, Zap } from 'lucide-react';
 
 const Auth = () => {
   const [email, setEmail] = useState('');
@@ -64,7 +64,6 @@ const Auth = () => {
     if (error) {
       let errorMessage = error.message;
       
-      // Handle common signup errors
       if (error.message.includes("User already registered")) {
         errorMessage = "An account with this email already exists. Please sign in instead or use a different email address.";
       } else if (error.message.includes("Invalid email")) {
@@ -80,11 +79,10 @@ const Auth = () => {
       });
     } else {
       toast({
-        title: "Account Created Successfully!",
+        title: "Welcome to the Galaxy! 🛸",
         description: "Please check your email for a confirmation link to complete your registration.",
         duration: 6000,
       });
-      // Clear form after successful signup
       setEmail('');
       setPassword('');
       setConfirmPassword('');
@@ -114,7 +112,6 @@ const Auth = () => {
       let errorMessage = error.message;
       let errorTitle = "Sign In Failed";
       
-      // Handle specific authentication errors with helpful messages
       if (error.message === "Invalid login credentials" || error.message.includes("invalid_credentials")) {
         errorTitle = "Invalid Credentials";
         errorMessage = "The email or password you entered is incorrect. Please check your credentials and try again.";
@@ -137,8 +134,8 @@ const Auth = () => {
       });
     } else {
       toast({
-        title: "Welcome back!",
-        description: "You have successfully signed in to your account.",
+        title: "Welcome back, Space Explorer! 🚀",
+        description: "You have successfully signed in to your galactic account.",
       });
       navigate('/');
     }
@@ -191,7 +188,7 @@ const Auth = () => {
       });
     } else {
       toast({
-        title: "Password Reset Email Sent",
+        title: "Password Reset Email Sent 📧",
         description: "Check your email for instructions to reset your password.",
         duration: 5000,
       });
@@ -199,34 +196,40 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen bg-background flex items-center justify-center p-4 relative">
+      <div className="alien-starfield"></div>
+      
+      <div className="w-full max-w-md relative z-10">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-orbitron font-bold text-primary glow-text-red mb-2">
+          <div className="text-6xl mb-4">🛸</div>
+          <h1 className="text-3xl font-alien font-bold text-primary glow-text-purple mb-2">
             GALACTIC ACCESS
           </h1>
-          <p className="text-muted-foreground font-exo">
-            Join the galaxy's finest accommodation network
+          <p className="text-muted-foreground font-space">
+            Join the universe's finest accommodation network
           </p>
         </div>
 
-        <Card className="bg-card/90 backdrop-blur-md border-border">
+        <Card className="alien-hover-lift bg-card/90 backdrop-blur-md border-border">
           <CardHeader className="text-center">
-            <CardTitle className="font-orbitron text-foreground">Authentication Console</CardTitle>
-            <CardDescription className="font-exo">
-              Access your galactic travel account
+            <CardTitle className="font-space text-foreground flex items-center justify-center">
+              <Zap className="w-5 h-5 mr-2 text-primary" />
+              Authentication Console
+            </CardTitle>
+            <CardDescription className="font-space">
+              Access your cosmic travel account
             </CardDescription>
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="signin" className="w-full">
               <TabsList className="grid w-full grid-cols-2 mb-6">
-                <TabsTrigger value="signin" className="font-exo">Sign In</TabsTrigger>
-                <TabsTrigger value="signup" className="font-exo">Sign Up</TabsTrigger>
+                <TabsTrigger value="signin" className="font-space">Sign In</TabsTrigger>
+                <TabsTrigger value="signup" className="font-space">Sign Up</TabsTrigger>
               </TabsList>
 
               <TabsContent value="signin" className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="signin-email" className="text-sm font-exo flex items-center">
+                  <Label htmlFor="signin-email" className="text-sm font-space flex items-center">
                     <Mail className="w-4 h-4 mr-1 text-primary" />
                     Email
                   </Label>
@@ -236,12 +239,12 @@ const Auth = () => {
                     placeholder="Enter your email..."
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="bg-input border-border focus:border-primary"
+                    className="bg-input border-border focus:border-primary rounded-xl"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="signin-password" className="text-sm font-exo flex items-center">
+                  <Label htmlFor="signin-password" className="text-sm font-space flex items-center">
                     <Lock className="w-4 h-4 mr-1 text-accent" />
                     Password
                   </Label>
@@ -251,7 +254,7 @@ const Auth = () => {
                     placeholder="Enter your password..."
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="bg-input border-border focus:border-primary"
+                    className="bg-input border-border focus:border-primary rounded-xl"
                   />
                 </div>
 
@@ -261,7 +264,7 @@ const Auth = () => {
                     size="sm"
                     onClick={handleForgotPassword}
                     disabled={isLoading}
-                    className="text-xs text-muted-foreground hover:text-primary p-0 h-auto font-exo"
+                    className="text-xs text-muted-foreground hover:text-primary p-0 h-auto font-space"
                   >
                     Forgot password?
                   </Button>
@@ -270,10 +273,9 @@ const Auth = () => {
                 <Button
                   onClick={handleSignIn}
                   disabled={isLoading || !email || !password}
-                  className="w-full"
-                  variant="lightsaber"
+                  className="w-full alien-button bg-primary hover:bg-primary/90 text-primary-foreground font-space font-semibold"
                 >
-                  {isLoading ? "Accessing..." : "Enter the Galaxy"}
+                  {isLoading ? "Accessing..." : "🚀 Enter the Galaxy"}
                 </Button>
 
                 <div className="relative">
@@ -281,7 +283,7 @@ const Auth = () => {
                     <Separator className="w-full" />
                   </div>
                   <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-card px-2 text-muted-foreground font-exo">Or continue with</span>
+                    <span className="bg-card px-2 text-muted-foreground font-space">Or continue with</span>
                   </div>
                 </div>
 
@@ -289,7 +291,7 @@ const Auth = () => {
                   onClick={handleGoogleSignIn}
                   disabled={isLoading}
                   variant="outline"
-                  className="w-full"
+                  className="w-full alien-button-blue"
                 >
                   <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
                     <path
@@ -312,10 +314,10 @@ const Auth = () => {
                   Continue with Google
                 </Button>
 
-                <div className="mt-4 p-3 bg-muted/50 rounded-md border border-border">
+                <div className="mt-4 p-3 bg-muted/50 rounded-xl border border-border">
                   <div className="flex items-start space-x-2">
                     <AlertCircle className="w-4 h-4 text-muted-foreground mt-0.5 flex-shrink-0" />
-                    <div className="text-xs text-muted-foreground font-exo">
+                    <div className="text-xs text-muted-foreground font-space">
                       <p className="font-medium mb-1">Having trouble signing in?</p>
                       <ul className="space-y-1 text-xs">
                         <li>• Double-check your email and password</li>
@@ -329,7 +331,7 @@ const Auth = () => {
 
               <TabsContent value="signup" className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="signup-email" className="text-sm font-exo flex items-center">
+                  <Label htmlFor="signup-email" className="text-sm font-space flex items-center">
                     <Mail className="w-4 h-4 mr-1 text-primary" />
                     Email
                   </Label>
@@ -339,12 +341,12 @@ const Auth = () => {
                     placeholder="Enter your email..."
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="bg-input border-border focus:border-primary"
+                    className="bg-input border-border focus:border-primary rounded-xl"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="signup-password" className="text-sm font-exo flex items-center">
+                  <Label htmlFor="signup-password" className="text-sm font-space flex items-center">
                     <Lock className="w-4 h-4 mr-1 text-accent" />
                     Password
                   </Label>
@@ -354,13 +356,13 @@ const Auth = () => {
                     placeholder="Create a password (min. 6 characters)..."
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="bg-input border-border focus:border-primary"
+                    className="bg-input border-border focus:border-primary rounded-xl"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="confirm-password" className="text-sm font-exo flex items-center">
-                    <Lock className="w-4 h-4 mr-1 text-rebel" />
+                  <Label htmlFor="confirm-password" className="text-sm font-space flex items-center">
+                    <Lock className="w-4 h-4 mr-1 text-alien-green" />
                     Confirm Password
                   </Label>
                   <Input
@@ -369,17 +371,16 @@ const Auth = () => {
                     placeholder="Confirm your password..."
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="bg-input border-border focus:border-primary"
+                    className="bg-input border-border focus:border-primary rounded-xl"
                   />
                 </div>
 
                 <Button
                   onClick={handleSignUp}
                   disabled={isLoading || !email || !password || !confirmPassword}
-                  className="w-full"
-                  variant="lightsaber-blue"
+                  className="w-full alien-button-blue bg-accent hover:bg-accent/90 text-accent-foreground font-space font-semibold"
                 >
-                  {isLoading ? "Creating Account..." : "Join the Rebellion"}
+                  {isLoading ? "Creating Account..." : "🛸 Join the Galaxy"}
                 </Button>
 
                 <div className="relative">
@@ -387,7 +388,7 @@ const Auth = () => {
                     <Separator className="w-full" />
                   </div>
                   <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-card px-2 text-muted-foreground font-exo">Or continue with</span>
+                    <span className="bg-card px-2 text-muted-foreground font-space">Or continue with</span>
                   </div>
                 </div>
 
@@ -395,7 +396,7 @@ const Auth = () => {
                   onClick={handleGoogleSignIn}
                   disabled={isLoading}
                   variant="outline"
-                  className="w-full"
+                  className="w-full alien-button-blue"
                 >
                   <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
                     <path
@@ -418,10 +419,10 @@ const Auth = () => {
                   Continue with Google
                 </Button>
 
-                <div className="mt-4 p-3 bg-muted/50 rounded-md border border-border">
+                <div className="mt-4 p-3 bg-muted/50 rounded-xl border border-border">
                   <div className="flex items-start space-x-2">
                     <AlertCircle className="w-4 h-4 text-muted-foreground mt-0.5 flex-shrink-0" />
-                    <div className="text-xs text-muted-foreground font-exo">
+                    <div className="text-xs text-muted-foreground font-space">
                       <p className="font-medium mb-1">Account creation tips:</p>
                       <ul className="space-y-1 text-xs">
                         <li>• Use a valid email address</li>
